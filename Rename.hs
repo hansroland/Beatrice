@@ -28,7 +28,7 @@ main = copyAndRenameFiles fromDir
 -- Directory, in dem die .jpg Files gelesen werden
 fromDir :: FilePath
 -- fromDir = "/home/roland/Beatrice/"
-fromDir = "/home/roland/Beatrice/JGilgen_2/"
+fromDir = "/home/roland/Beatrice/Wilhlem_Markus_2013_Bilder/"
 
 -- Directory, in das die Kopien geschrieben werden
 toDir :: FilePath
@@ -49,15 +49,16 @@ copyAndRenameFiles path = do
 
 -- Creates from a list of filenames a list of pairs with
 -- old filename and new filename.
+-- Start with a sprcial first number
 newNames :: [String] -> [(String, String)]
-newNames files = lnewNames 2000 files
+newNames files = lnewNames 0 files
     where
       lnewNames n []       = []
       lnewNames n (f : fs) = (f, newName n f) : lnewNames (n + 1) fs
 
 -- create a new name from an integer and an existing filename
 newName :: Int -> String -> String
-newName n fn = "JG" ++ strNum n ++ " " ++ takeWhile (/= '-') fn ++ ".jpg"
+newName n fn = "MW" ++ strNum n ++ " " ++ takeWhile (/= '-') fn ++ ".jpg"
    where 
      strNum :: Int -> String 
      strNum n = tail $ show $ 10000 + n

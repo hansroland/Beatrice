@@ -27,7 +27,7 @@ main = createIndex fromDir
 -- Directory, in dem die Files gelesen werden
 fromDir :: FilePath
 -- fromDir = "/home/roland/Beatrice/"
-fromDir = "/home/roland/Beatrice/JGilgen_2/Renames/"
+fromDir = "/home/roland/Beatrice/Wilhlem_Markus_2013_Bilder/Renames/"
 
 
 -- Hauptverarbeitung:
