@@ -28,10 +28,10 @@ ixLong = 9
 -- ---------------------------------------------------------------
 -- reads the first number in a string
 -- ---------------------------------------------------------------
--- do not read ending 'N' or 'E' for North or East
+-- do not read ending ' N' or ' E' for North or East
 getNumber :: String -> Double
-getNumber  = toDouble  . getNumberString 
-   where 
+getNumber  = toDouble  . getNumberString
+   where
       toDouble xs = read xs :: Double
       getNumberString = takeWhile (\c -> isDigit c || c =='.')
 
@@ -56,8 +56,8 @@ addSwissKoord :: String -> String
 addSwissKoord xs = asCSV (to03 (wgs2ch wgs84)) ++ xs
      where 
         csv = splitOn ";" xs
-        latt = double2Deg (getLatt csv) 
-        long = double2Deg (getLong csv)
+        latt = double2Deg $ getLatt csv
+        long = double2Deg $ getLong csv
         wgs84 = WGS latt long
 		
 -- -----------------------------------------------------------------------
@@ -88,7 +88,7 @@ myLines :: String -> [String]
 myLines = splitOn [chr 13]
 
 processArray :: [String] -> [String]
-processArray (l : ls) =  processFirstLine l : (processBody ls)
+processArray (l : ls) =  processFirstLine l : processBody ls
 
 processFirstLine :: String -> String
 processFirstLine l = "CH-Laenge 600;CH-Breite;" ++ l
@@ -98,15 +98,15 @@ processBody = map addSwissKoord
 
 double2Deg :: Double -> Degree
 double2Deg d = Deg g m s
-    where 
+    where
       g = floor d
-      r1 = (d - (fromIntegral g)) * 60
+      r1 = (d - fromIntegral g) * 60
       m = floor r1
-      s = (r1 - (fromIntegral m)) * 60
+      s = (r1 - fromIntegral m) * 60
 
 
 deg2Double :: Degree -> Double
-deg2Double (Deg g m s) = (fromIntegral g) + ((fromIntegral m) / 60) + (s / 3600)
+deg2Double (Deg g m s) = fromIntegral g + (fromIntegral m / 60) + (s / 3600)
 
 
 test01 = "8457;26.06.11;L. Beenken;Aecidium sp.;;L. Beenken;1;;südlich der Thur;8.608333333;47.59138889;360;7;;;Blatt, lebend;von;Clematis vitalba L.;;;;Ludwig Beenken;Thuraue bei Flaach;südlich der Thur;Thuraue bei Flaach,  südlich der Thur;PRIV;2;;unter;Alnus viridis (Chaix) DC.; unter Alnus viridis (Chaix) DC.;Alnus;Russula;alnetorum;;"

@@ -51,7 +51,7 @@ copyAndRenameFiles path = do
 -- old filename and new filename.
 -- Start with a sprcial first number
 newNames :: [String] -> [(String, String)]
-newNames files = lnewNames 0 files
+newNames = lnewNames 0
     where
       lnewNames n []       = []
       lnewNames n (f : fs) = (f, newName n f) : lnewNames (n + 1) fs

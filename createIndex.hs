@@ -38,14 +38,14 @@ createIndex :: FilePath -> IO()
 createIndex path = do
   hFile <- openFile (fromDir ++ "index.csv") WriteMode
   files <- getDirectoryContents path
-  lines <- return $ map getLatName $ sort $ selectJpgs files 
+  let lines = map getLatName $ sort $ selectJpgs files
   mapM_ (hPutStrLn hFile) lines
-    where 
+    where
       selectJpgs = filter $ isSuffixOf ".JPG". map toUpper
 
 -- Entfernt das .jpg am Ende der Datei
 removeTrailingJPG :: String -> String
-removeTrailingJPG  = reverse . (drop 4 ) . reverse
+removeTrailingJPG  = reverse . drop 4 . reverse
 
 -- Entfernt die LaufNr am Anfang
 removeHeader :: String -> String
@@ -62,12 +62,12 @@ removeParens :: String -> String
 -- removeParens = (takeWhile /= lParen)
 -- removeParens =  (dropWhile (/= ')')) . (takeWhile (/= '('))
 removeParens fn =  first ++ last
-  where 
+  where
      first = takeWhile (/= '(') fn
-     last = if last' == [] then [] else tail last'
+     last = if null last' then [] else tail last'
      last' = dropWhile (/= ')') fn
     
-createCSVLine :: String -> String 
+createCSVLine :: String -> String
 createCSVLine = removeMultBlanks . removeParens . removeTrailingJPG . removeHeader
 
 getLatName :: String -> String
