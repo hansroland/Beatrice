@@ -19,8 +19,8 @@ import Data.Char
 -- Constants - instead of a better main programm
 -- ---------------------------------------------------------------
 
-inFileName = "Ludwig2.csv"
-outFileName = "out2.csv"
+inFileName = "HerbarLudwig16.csv"
+outFileName = "HerbarLudwig16_Check.csv"
 
 -- | Zero based Index of Lattitude Field in CSV
 ixLatt :: Int
@@ -38,7 +38,7 @@ getStrLong xs = xs !! ixLong
 
 -- | Trennzeichen für Zeilen
 newLine :: Int
-newLine = 10                            -- ev mit 13 versuchen !!
+newLine = 13                            -- ev mit 13 versuchen !!
 -- ---------------------------------------------------------------------
 -- add the swiss koordinates at the beginning of the string
 -- ---------------------------------------------------------------------

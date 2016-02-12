@@ -1,6 +1,9 @@
 -- Skript um eine CSV Datei mit Weltkoordinaten mit Schweizer Koordinaten
 -- zu ergänzen.
 
+-- Empfehlung: Das Umformatieren von Excel .xls  auf .csv Fromat wird am
+-- besten von Beatrice auf dem Mac durchgeführt.
+
 -- Die erste Zeile enthält die Spaltenüberschriften.
 -- Die Schweizer Koordinaten werden am Anfang jeder Zeile eingefügt.
 
@@ -15,8 +18,8 @@ import Data.Char
 -- ---------------------------------------------------------------
 
 -- | Name des Input Files
-inFileName = "Ludwig2.csv"
-outFileName = "Ludwig2_CH.csv"
+inFileName = "HerbarLudwig16.csv"
+outFileName = "HerbarLudwig16_CH.csv"
 
 -- | Index of Lattitude Field in CSV
 ixLatt :: Int
@@ -29,7 +32,7 @@ ixLong = 9
 -- | Trennzeichen für Zeilen (kann auch 13 sein)
 --   Trennzeichen in whHexEditor prüfen !
 newLine :: Int
-newLine = 10
+newLine = 13
 -- ---------------------------------------------------------------
 -- reads the first number in a string
 -- ---------------------------------------------------------------
