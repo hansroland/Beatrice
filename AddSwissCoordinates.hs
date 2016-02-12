@@ -14,8 +14,9 @@ import Data.Char
 -- Constants - instead of a better main programm
 -- ---------------------------------------------------------------
 
-inFileName = "Belege Schweiz L Beenken_bearb.csv"
-outFileName = "Belege Schweiz L Beenken_bearb_swiss.csv"
+-- | Name des Input Files
+inFileName = "Ludwig2.csv"
+outFileName = "Ludwig2_CH.csv"
 
 -- | Index of Lattitude Field in CSV
 ixLatt :: Int
@@ -25,6 +26,10 @@ ixLatt = 10
 ixLong :: Int
 ixLong = 9
 
+-- | Trennzeichen für Zeilen (kann auch 13 sein)
+--   Trennzeichen in whHexEditor prüfen !
+newLine :: Int
+newLine = 10
 -- ---------------------------------------------------------------
 -- reads the first number in a string
 -- ---------------------------------------------------------------
@@ -38,14 +43,14 @@ getNumber  = toDouble  . getNumberString
 
 getStrLatt :: [String] -> String
 getStrLatt xs = xs !! ixLatt
-		 
+
 getStrLong :: [String] -> String
 getStrLong xs = xs !! ixLong
 
 
 getLatt :: [String] -> Double
 getLatt = getNumber . getStrLatt
-		 
+
 getLong :: [String] -> Double
 getLong = getNumber . getStrLong
 
@@ -53,13 +58,15 @@ getLong = getNumber . getStrLong
 -- add the swiss koordinates at the beginning of the string
 -- ---------------------------------------------------------------------
 addSwissKoord :: String -> String
+addSwissKoord [] = []
+addSwissKoord [c] = []
 addSwissKoord xs = asCSV (to03 (wgs2ch wgs84)) ++ xs
-     where 
+     where
         csv = splitOn ";" xs
         latt = double2Deg $ getLatt csv
         long = double2Deg $ getLong csv
         wgs84 = WGS latt long
-		
+
 -- -----------------------------------------------------------------------
 -- write out swisskoord with ; in middle and at end
 -- -------------------------------------------------------------------
@@ -70,8 +77,8 @@ asCSV (LV03 x y) = show x ++ ";" ++ show y ++ ";"
 -- Process file
 -- ---------------------------------------------------------------------
 processFile ::  IO()
-processFile = 
-    do 
+processFile =
+    do
       infile <- openFile inFileName ReadMode
       hSetEncoding infile char8
       outfile <- openFile outFileName WriteMode
@@ -81,11 +88,11 @@ processFile =
       hClose outfile
 
 process :: String -> String
-process xs = 
+process xs =
       unlines (processArray (myLines xs))
 
 myLines :: String -> [String]
-myLines = splitOn [chr 13]
+myLines = splitOn [chr newLine]
 
 processArray :: [String] -> [String]
 processArray (l : ls) =  processFirstLine l : processBody ls
