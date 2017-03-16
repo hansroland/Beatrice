@@ -18,21 +18,21 @@ import Data.Char
 -- ---------------------------------------------------------------
 
 -- | Name des Input Files
-inFileName = "HerbarLudwig16.csv"
-outFileName = "HerbarLudwig16_CH.csv"
+inFileName = "_Ludwig Belege Schweiz2016_1.csv"
+outFileName = "_Ludwig Belege Schweiz2016_1_CH.csv"
 
--- | Index of Lattitude Field in CSV
+-- | Index of Lattitude Field in CSV (0-relative) (7.123 values)
 ixLatt :: Int
-ixLatt = 10
+ixLatt = 2
 
--- | Index of Longitude Field in CSV
+-- | Index of Longitude Field in CSV (0-relative) (47.123 values)
 ixLong :: Int
-ixLong = 9
+ixLong = 1
 
--- | Trennzeichen für Zeilen (kann auch 13 sein)
+-- | Trennzeichen für Zeilen (meist 10, kann auch 13 sein)
 --   Trennzeichen in whHexEditor prüfen !
 newLine :: Int
-newLine = 13
+newLine = 10
 -- ---------------------------------------------------------------
 -- reads the first number in a string
 -- ---------------------------------------------------------------
